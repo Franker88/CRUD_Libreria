@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Libros Consultados</title>
+</head>
+<body>
+	<center>
+		<font size="13">Libros Consultados</font>
+		<table border="2">
+			<thead>
+				<tr>
+					<th align="center" colspan="12">Libros</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Id_libro</td>
+					<td>Titulo</td>
+					<td>Nombre Autor</td>
+					<td>Apellido Autor</td>
+					<td>Editorial</td>
+					<td>Clasificacion</td>
+					<td>Publicacion</td>
+					<td>Idioma</td>
+					<td>Ejemplares</td>
+					<td>Cota</td>
+					<td colspan="2" align="center">Opciones</td>
+				</tr>
+
+				<?php
+
+				$conexion = new mysqli("localhost","root","","biblioteca_franco");
+
+				
+				$titulo=$_POST['titulo']."%";
+				$na=$_POST['nombre_autor']."%";
+				$aa=$_POST['apellido_autor']."%";
+				$edi=$_POST['editorial']."%";
+				$clas=$_POST['clasificacion']."%";
+				$pub=$_POST['publicacion']."%";
+				$idi=$_POST['idioma']."%";
+				$eje=$_POST['ejemplares']."%";
+				$cot=$_POST['cota']."%";
+
+				$query=$conexion->query("SELECT libros.id_libro,libros.titulo,libros.publicacion,libros.ejemplares,libros.cota,autores_libros.nombre_autor,autores_libros.apellido_autor,editorial.editorial,clasificacion.clasificacion,idioma_libro.idioma FROM libros,autores_libros,editorial,clasificacion,idioma_libro,relacion_libro_autor,relacion_libro_editorial,relacion_libro_clasificacion,relacion_libro_idioma WHERE libros.id_libro=relacion_libro_autor.id_libro AND autores_libros.id_autor=relacion_libro_autor.id_autor AND libros.id_libro=relacion_libro_editorial.id_libro AND editorial.id_editorial=relacion_libro_editorial.id_editorial AND libros.id_libro=relacion_libro_clasificacion.id_libro AND clasificacion.id_clasificacion=relacion_libro_clasificacion.id_clasificacion AND libros.id_libro=relacion_libro_idioma.id_libro AND idioma_libro.id_idioma=relacion_libro_idioma.id_idioma AND titulo LIKE '$titulo' AND nombre_autor LIKE '$na' AND apellido_autor LIKE '$aa' AND editorial LIKE '$edi' AND clasificacion LIKE '$clas' AND publicacion LIKE '$pub' AND idioma LIKE '$idi' AND ejemplares LIKE '$eje' AND cota LIKE '$cot'");
+
+				
+
+				while ($row=mysqli_fetch_assoc($query)) {
+				
+				?>
+				<tr>
+					<td><?php echo $row['id_libro']?></td>
+					<td><?php echo $row['titulo']?></td>
+					<td><?php echo $row['nombre_autor']?></td>
+					<td><?php echo $row['apellido_autor']?></td>
+					<td><?php echo $row['editorial']?></td>
+					<td><?php echo $row['clasificacion']?></td>
+					<td><?php echo $row['publicacion']?></td>
+					<td><?php echo $row['idioma']?></td>
+					<td><?php echo $row['ejemplares']?></td>
+					<td><?php echo $row['cota']?></td>
+					<td><a href="nuevos_datos.php?id_libro=<?php echo $row['id_libro']?>">Modificar</a></td>
+					<td><a href="eliminar.php?id_libro=<?php echo $row['id_libro']?>">Eliminar</a></td>
+				</tr>
+				<?php
+				}
+				?>
+
+			</tbody>
+		</table><br/>
+		<form method="post" action="Consultar_libro.php">
+			<input type="submit" value="Volver">
+		</form>
+	</center>
+</body>
+</html>

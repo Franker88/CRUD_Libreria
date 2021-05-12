@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Añadir nuevo usuario</title>
+</head>
+<body>
+	<center>
+		<font size="13"><b>Nuevo Usuario</b></font>
+		<form method="post" action="proceso_guardar_ususario.php">
+			Nombre:<input type="text" REQUIRED name="nombre_usuario" placeholder="Nombre" maxlength="20"/>
+
+			Apellido:<input type="text" REQUIRED name="apellido_usuario" placeholder="Apellido" maxlength="20"/>
+
+			Cedula:
+			<select name="nacionalidad">
+				<option value="Venezolano">V-</option>
+				<option value="Extranjero">E-</option>
+			</select>
+			<input type="text" REQUIRED name="id_usuario" placeholder="Cedula" maxlength="20"/><br/><br/>
+
+			Telefono:<input type="text" REQUIRED name="telefono" placeholder="Telefono: 0414/0412/..." maxlength="20"/>
+
+			Correo:<input type="email" REQUIRED name="correo" placeholder="...@___.com" maxlength="50"/><br/><br/>
+
+			Genero:
+			<input type="radio" name="genero" value="masculino" checked> Masculino
+			<input type="radio" name="genero" value="femenino"> Femenino
+			<input type="radio" name="genero" value="otro"> Otro<br/><br/>
+
+			Carrera:
+			<select name="carrera">
+				<option value="">Carrera</option>
+				<option value="Ingenieria en Informatica">ING.INF(Ingenieria Informatica)</option>
+				<option value="Ingenieria en Mantenimiento de Obra">ING.MDO(Ingenieria M.de Obra)</option>
+				<option value="Publicidad">PUB(Publicidad)</option>
+				<option value="Administracion de Empresas">ADE(A. de Empresas)</option>
+				<option value="Comercio Internacional">COE(Comercio Internacional)</option>
+			</select>
+
+			Tipo:
+			<select name="tipo_usuario">
+				<option value="">Tipo</option>
+				<option value="Estudiante">Estudiante</option>
+				<option value="Docente">Docente</option>
+				<option value="Administrador">Administrador</option>
+				<option value="Otro">Otro</option>
+			</select><br/><br/>
+
+			Turno:
+			<input type="radio" name="turno" value="Diurno"> Diurno
+			<input type="radio" name="turno" value="Vespertino"> Vespertino
+			<input type="radio" name="turno" value="Nocturno"> Nocturno <br/><br/>
+
+			<input type="submit" value="Guardar"><br/><br/>
+
+		</form>
+		<form method="post" action="usuarios.php">
+			<input type="submit" value="Volver">
+		</form>
+	</center>
+
+</body>
+</html>

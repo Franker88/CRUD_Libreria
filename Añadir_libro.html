@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Añadir nuevo libro</title>
+</head>
+<body>
+	<center>
+		<font size="13"><b>Nuevo Libro</b></font>
+		<form method="post" action="proceso_guardar_libro.php?id_libro=<?php echo $row['id_libro']?>">
+			Titulo:<input type="text" REQUIRED name="titulo" placeholder="titulo" maxlength="100"/><br/><br/>
+
+			Nombre Autor:<input type="text" REQUIRED name="nombre_autor" placeholder="Nombre Autor" maxlength="20"/>
+
+			Apellido Autor:<input type="text" REQUIRED name="apellido_autor" placeholder="Apellido Autor" maxlength="20"/><br/><br/>
+
+			Editorial:<input type="text" REQUIRED name="editorial" placeholder="Editorial" maxlength="100"/>
+
+			Clasificacion:<input type="text" REQUIRED name="clasificacion" placeholder="Clasificacion" maxlength="100"/><br/><br/>
+
+			Año Publicacion:
+			<select name="publicacion">
+				<option value="">Año</option>
+				<?php
+					$year=date("Y");
+					for ($i=$year; $i >=1900 ; $i--) { 
+						echo '<option name="'.$i.'">'.$i.'</option>';
+					}
+				?>
+			</select>
+
+			Idioma:
+			<select name="idioma">
+				<option value="">Idioma</option>
+				<option value="Castellano">Castellano</option>
+				<option value="Español">Español</option>
+				<option value="Ingles">Ingles</option>
+			</select>
+
+			Ejemplares:<input type="number" REQUIRED name="ejemplares" min="1" max="100"/><br/><br/>
+
+			Cota:<input type="text" REQUIRED name="cota" placeholder="Cota" maxlength="20"/>
+
+			<input type="submit" value="Guardar"><br/><br/>
+
+		</form>
+		<form method="post" action="libros.php">
+			<input type="submit" value="Volver">
+		</form>
+	</center>
+
+</body>
+</html>

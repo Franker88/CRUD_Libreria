@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Menu Principal</title>
+</head>
+<body>
+	<center>
+		<font size="13">Base de Datos Biblioteca</font><br/><br/>
+		<table bgcolor="gray" border="4" cellpadding="2" cellspacing="2">
+			<thead>
+				<tr>
+					<th align="center" colspan="3">Tablas</th> 
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td align="center">
+						<form action="libros.php" method="post">
+						<input type="submit" value="Libros"/>
+						</form>
+					</td>
+					<td align="center">
+						<form action="usuarios.php" method="post">
+						<input type="submit" value="Usuarios"/>
+						</form>
+					</td>
+					<td align="center">
+						<form method="post" action="peticion_libro.php">
+						<input type="submit" value="Peticion de libro"/>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">
+						<form method="post" action="tesis.php">
+						<input type="submit" value="Tesis"/>
+						</form>
+					</td>
+					<td align="center">
+						<form method="post" action="peticion_tesis.php">
+						<input type="submit" value="Peticion de tesis"/>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3">
+						<form method="post" action="acceso_internet.php">
+						<input type="submit" value="Acceso a Internet"/>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</center>
+</body>
+</html>
