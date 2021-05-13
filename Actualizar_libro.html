@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nuevos Datos Libros</title>
+</head>
+<body>
+	<center>
+		<?php
+		$idlib=$_REQUEST['id_libro'];
+		$conexion = new mysqli("localhost","root","","biblioteca_franco");
+
+		$query=$conexion->query("SELECT libros.id_libro,libros.titulo,libros.publicacion,libros.ejemplares,libros.cota,autores_libros.nombre_autor,autores_libros.apellido_autor,editorial.editorial,clasificacion.clasificacion,idioma_libro.idioma FROM libros,autores_libros,editorial,clasificacion,idioma_libro,relacion_libro_autor,relacion_libro_editorial,relacion_libro_clasificacion,relacion_libro_idioma WHERE libros.id_libro=$idlib AND libros.id_libro=relacion_libro_autor.id_libro AND autores_libros.id_autor=relacion_libro_autor.id_autor AND libros.id_libro=relacion_libro_editorial.id_libro AND editorial.id_editorial=relacion_libro_editorial.id_editorial AND libros.id_libro=relacion_libro_clasificacion.id_libro AND clasificacion.id_clasificacion=relacion_libro_clasificacion.id_clasificacion AND libros.id_libro=relacion_libro_idioma.id_libro AND idioma_libro.id_idioma=relacion_libro_idioma.id_idioma");
+
+			$row=mysqli_fetch_assoc($query);
+		?>
+
+		<center>
+		<font size="8">Nuevos Datos</font><br/><br/>
+		<font size="4" color="gray"><i>Ingrese los nuevos datos</i></font><br/><br/>
+		<form method="post" action="proceso_modificar.php?id_libro=<?php echo $row['id_libro']?>">
+			Titulo:<input type="text" name="titulo" placeholder="titulo" maxlength="100" value="<?php echo $row['titulo']?>" /><br/><br/>
+
+			Nombre Autor:<input type="text" name="nombre_autor" placeholder="Nombre Autor" maxlength="20" value="<?php echo $row['nombre_autor'];?>" />
+
+			Apellido Autor:<input type="text" name="apellido_autor" placeholder="Apellido Autor" maxlength="20" value="<?php echo $row['apellido_autor'];?>" /><br/><br/>
+
+			Editorial:<input type="text" name="editorial" placeholder="Editorial" maxlength="100" value="<?php echo $row['editorial'];?>" />
+
+			Clasificacion:<input type="text" name="clasificacion" placeholder="Clasificacion" maxlength="100" value="<?php echo $row['clasificacion'];?>" /><br/><br/>
+
+			Año Publicacion:
+			<select name="publicacion">
+				<option value="">Año</option>
+				<?php
+					$year=date("Y");
+					for ($i=$year; $i >=1900 ; $i--) { 
+						echo '<option name="'.$i.'">'.$i.'</option>';
+					}
+				?>
+			</select>
+
+			Idioma:
+			<select name="idioma">
+				<option value="">Idioma</option>
+				<option value="Castellano">Castellano</option>
+				<option value="Español">Español</option>
+				<option value="Ingles">Ingles</option>
+			</select>
+
+			Ejemplares:<input type="number" name="ejemplares" min="1" max="100" value="<?php echo $row['ejemplares'];?>" /><br/><br/>
+
+			Cota:<input type="text" name="cota" placeholder="Cota" maxlength="20" value="<?php echo $row['cota'];?>" />
+
+			<input type="submit" value="Modificar"><br/><br/>
+
+		</form>
+		<form method="post" action="Consultar_libro.php">
+			<input type="submit" value="Volver">
+		</form>
+	</center>
+	</center>
+</body>
+</html>

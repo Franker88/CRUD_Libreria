@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nuevos Datos Usuario</title>
+</head>
+<body>
+	<center>
+		<?php
+		$idu=$_REQUEST['id_usuario'];
+		$conexion= new mysqli("localhost","root","","biblioteca_franco");
+
+		$query=$conexion->query("SELECT usuario.id_usuario,usuario.nombre_usuario,usuario.apellido_usuario,usuario.telefono,usuario.correo,carrera_usuario.carrera,genero_usuario.genero,nacionalidad_usuario.nacionalidad,turno_usuario.turno FROM usuario,carrera_usuario,genero_usuario,nacionalidad_usuario,tipo_usuario,turno_usuario,relacion_usuario_carrera,relacion_usuario_genero,relacion_usuario_nacionalidad,relacion_usuario_turno WHERE usuario.id_usuario=relacion_usuario_carrera.id_usuario AND carrera_usuario.id_carrera=relacion_usuario_carrera.id_carrera AND usuario.id_usuario=relacion_usuario_genero.id_usuario AND genero_usuario.id_genero=relacion_usuario_genero.id_genero AND usuario.id_usuario=relacion_usuario_nacionalidad.id_usuario AND nacionalidad_usuario.id_nacionalidad=relacion_usuario_nacionalidad.id_nacionalidad AND usuario.id_usuario=relacion_usuario_turno.id_usuario AND turno_usuario.id_turno=relacion_usuario_turno.id_turno");
+
+		$row=mysqli_fetch_assoc($query);
+		?>
+
+		<center>
+		<font size="13"><b>Consultar Usuario</b></font>
+		<form method="post" action="proceso_modificar_usuario.php?id_usuario=<?php echo $row['id_usuario']?>">
+			Nombre:<input type="text" REQUIRED name="nombre_usuario" placeholder="Nombre" maxlength="20" value="<?php echo $row['nombre_usuario']?>" />
+
+			Apellido:<input type="text" REQUIRED name="apellido_usuario" placeholder="Apellido" maxlength="20" value="<?php echo $row['apellido_usuario']?>" />
+
+			Cedula:
+			<select name="nacionalidad">
+				<option value="Venezolano">V-</option>
+				<option value="Extranjero">E-</option>
+			</select>
+			<input type="text" REQUIRED name="id_usuario" placeholder="Cedula" maxlength="20" value="<?php echo $row['id_usuario']?>" /><br/><br/>
+
+			Telefono:<input type="text" REQUIRED name="telefono" placeholder="Telefono: 0414/0412/..." maxlength="20" value="<?php echo $row['telefono']?>" />
+
+			Correo:<input type="email" REQUIRED name="correo" placeholder="...@___.com" maxlength="50" value="<?php echo $row['correo']?>" /><br/><br/>
+
+			Genero:
+			<input type="radio" name="genero" value="masculino"> Masculino
+			<input type="radio" name="genero" value="femenino"> Femenino
+			<input type="radio" name="genero" value="otro"> Otro<br/><br/>
+
+			Carrera:
+			<select name="carrera">
+				<option value="">Carrera</option>
+				<option value="Ingenieria en Informatica">ING.INF(Ingenieria Informatica)</option>
+				<option value="Ingenieria en Mantenimiento de Obra">ING.MDO(Ingenieria M.de Obra)</option>
+				<option value="Publicidad">PUB(Publicidad)</option>
+				<option value="Administracion de Empresas">ADE(A. de Empresas)</option>
+				<option value="Comercio Internacional">COE(Comercio Internacional)</option>
+			</select>
+
+			Tipo:
+			<select name="tipo_usuario">
+				<option value="">Tipo</option>
+				<option value="Estudiante">Estudiante</option>
+				<option value="Docente">Docente</option>
+				<option value="Administrador">Administrador</option>
+				<option value="Otro">Otro</option>
+			</select><br/><br/>
+
+			Turno:
+			<input type="radio" name="turno" value="Diurno"> Diurno
+			<input type="radio" name="turno" value="Vespertino"> Vespertino
+			<input type="radio" name="turno" value="Nocturno"> Nocturno <br/><br/>
+
+			<input type="submit" value="Modificar"><br/><br/>
+
+		</form>
+		<form method="post" action="usuarios.php">
+			<input type="submit" value="Volver">
+		</form>
+	</center>
+	</center>
+</body>
+</html>
